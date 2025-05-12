@@ -5,6 +5,10 @@ const app = express()
 const server = require("http").Server(app)
 const io = require("socket.io")(server)
 
+app.get("/",(req,res)=>{
+    res.status(200).send("Hello world")
+})
+
 io.on("connection",(socket) => {
     socket.emit("connect",{"message":"A Client Connected"})
 
@@ -18,7 +22,7 @@ io.on("connection",(socket) => {
     })
 })
 
-app.listen((error) => {
+server.listen(process.env.PORT,(error) => {
     if(!error){
         console.log("Listen on PORT: " + process.env.PORT)
     }
